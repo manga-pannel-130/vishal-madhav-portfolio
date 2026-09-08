@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Vishal's Project Explainer</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='styles.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    V
+                </div>
+
+                <span>
+                    Vishal AI
+                </span>
+
+            </div>
+
+
+            <button
+                class="new-chat"
+                onclick="startNewChat()"
+            >
+
+                <span class="plus">
+                    +
+                </span>
+
+                New chat
+
+            </button>
+
+
+            <div class="sidebar-section">
+
+                <div class="section-title">
+                    Projects
+                </div>
+
+
+                <button
+                    class="sidebar-project"
+                    onclick="sendQuick('Tell me about SkillSense')"
+                >
+                    <span>◈</span>
+                    SkillSense
+                </button>
+
+
+                <button
+                    class="sidebar-project"
+                    onclick="sendQuick('Tell me about RecoverAI')"
+                >
+                    <span>◈</span>
+                    RecoverAI
+                </button>
+
+
+                <button
+                    class="sidebar-project"
+                    onclick="sendQuick('Tell me about MealMate')"
+                >
+                    <span>◈</span>
+                    MealMate
+                </button>
+
+
+                <button
+                    class="sidebar-project"
+                    onclick="sendQuick('Tell me about Cryptera 2K26')"
+                >
+                    <span>◈</span>
+                    Cryptera 2K26
+                </button>
+
+
+                <button
+                    class="sidebar-project"
+                    onclick="sendQuick('Tell me about ElevateGYM')"
+                >
+                    <span>◈</span>
+                    ElevateGYM
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="profile-mini">
+
+                <div class="profile-avatar">
+                    V
+                </div>
+
+                <div>
+
+                    <div class="profile-name">
+                        Vishal Madhav
+                    </div>
+
+                    <div class="profile-role">
+                        CSE Student
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- Top Bar -->
+
+        <header class="topbar">
+
+            <div class="mobile-brand">
+
+                <div class="brand-icon">
+                    V
+                </div>
+
+                <span>
+                    Vishal AI
+                </span>
+
+            </div>
+
+
+            <div class="model-name">
+
+                Project Explainer
+
+                <span class="status-dot"></span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- Chat Area -->
+
+        <section
+            id="chat-box"
+            class="chat-box"
+            aria-live="polite"
+        >
+
+            <!-- Welcome Screen -->
+
+            <div
+                id="welcome-screen"
+                class="welcome"
+            >
+
+                <div class="welcome-icon">
+                    V
+                </div>
+
+                <h1>
+                    Vishal's Project Explainer
+                </h1>
+
+                <p>
+                    Ask me about my projects, contributions,
+                    technologies, skills, or education.
+                </p>
+
+
+                <!-- Suggested Questions -->
+
+                <div class="suggestions">
+
+
+                    <button
+                        onclick="sendQuick('Tell me about your projects')"
+                    >
+
+                        <span class="suggestion-icon">
+                            📁
+                        </span>
+
+                        <span>
+                            <strong>My projects</strong>
+                            <small>
+                                Explore the projects I've built
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        onclick="sendQuick('What did you contribute to SkillSense?')"
+                    >
+
+                        <span class="suggestion-icon">
+                            🧩
+                        </span>
+
+                        <span>
+                            <strong>Skillsense</strong>
+                            <small>
+                                Learn about my skillsense project contributions.
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        onclick="sendQuick('What technologies do you use?')"
+                    >
+
+                        <span class="suggestion-icon">
+                            💻
+                        </span>
+
+                        <span>
+                            <strong>Technical skills</strong>
+                            <small>
+                                Languages and technologies I use
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        onclick="sendQuick('What is RecoverAI?')"
+                    >
+
+                        <span class="suggestion-icon">
+                            🚀
+                        </span>
+
+                        <span>
+                            <strong>RecoverAI</strong>
+                            <small>
+                                Learn about my buildathon project
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Thinking Indicator -->
+
+        <div
+            id="typing"
+            class="typing hidden"
+            aria-live="polite"
+        >
+
+            <div class="typing-avatar">
+                V
+            </div>
+
+            <div class="typing-content">
+
+                <span class="typing-text">
+                    Thinking
+                </span>
+
+                <span class="typing-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Input Area -->
+
+        <div class="input-wrapper">
+
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Ask about my projects..."
+                    autocomplete="off"
+                    aria-label="Ask about Vishal's projects"
+                >
+
+
+                <button
+                    id="send-button"
+                    class="send-button"
+                    onclick="sendMessage()"
+                    aria-label="Send message"
+                >
+
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+
+                        <line
+                            x1="22"
+                            y1="2"
+                            x2="11"
+                            y2="13"
+                        ></line>
+
+                        <polygon
+                            points="22 2 15 22 11 13 2 9 22 2"
+                        ></polygon>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <div class="input-hint">
+
+                Vishal's AI can answer questions about
+                projects, skills, education and career goals.
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const input =
+    document.getElementById("user-input");
+
+const chatBox =
+    document.getElementById("chat-box");
+
+const typing =
+    document.getElementById("typing");
+
+const sendButton =
+    document.getElementById("send-button");
+
+const welcomeScreen =
+    document.getElementById("welcome-screen");
+
+
+
+/* =========================================
+   ADD MESSAGE
+========================================= */
+
+function addMessage(message, sender) {
+
+    /*
+     * Remove welcome screen once
+     * conversation starts.
+     */
+
+    if (welcomeScreen) {
+
+        welcomeScreen.style.display =
+            "none";
+
+    }
+
+
+    const messageRow =
+        document.createElement("div");
+
+    messageRow.className =
+        sender === "user"
+        ? "message-row user-row"
+        : "message-row bot-row";
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        sender === "user"
+        ? "message-avatar user-avatar"
+        : "message-avatar bot-avatar";
+
+
+    avatar.innerText =
+        sender === "user"
+        ? "You"
+        : "V";
+
+
+    const messageContent =
+        document.createElement("div");
+
+    messageContent.className =
+        "message-content";
+
+
+    const messageText =
+        document.createElement("div");
+
+    messageText.className =
+        "message-text";
+
+    messageText.innerText =
+        message;
+
+
+    messageContent.appendChild(
+        messageText
+    );
+
+
+    messageRow.appendChild(
+        avatar
+    );
+
+    messageRow.appendChild(
+        messageContent
+    );
+
+
+    chatBox.appendChild(
+        messageRow
+    );
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+}
+
+
+
+/* =========================================
+   QUICK QUESTIONS
+========================================= */
+
+function sendQuick(question) {
+
+    input.value =
+        question;
+
+    sendMessage();
+}
+
+
+
+/* =========================================
+   SEND MESSAGE
+========================================= */
+
+async function sendMessage() {
+
+    const message =
+        input.value.trim();
+
+
+    if (message === "") {
+
+        return;
+
+    }
+
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    input.value = "";
+
+
+    input.disabled = true;
+
+    sendButton.disabled = true;
+
+
+    typing.classList.remove(
+        "hidden"
+    );
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/chat",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server error"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+         * Artificial delay makes the
+         * thinking state visible.
+         */
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    700
+                )
+        );
+
+
+        typing.classList.add(
+            "hidden"
+        );
+
+
+        addMessage(
+            data.response,
+            "bot"
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        typing.classList.add(
+            "hidden"
+        );
+
+
+        addMessage(
+            "I couldn't connect to the chatbot. "
+            + "Please make sure the Flask server is running.",
+            "bot"
+        );
+
+    }
+
+
+    input.disabled = false;
+
+    sendButton.disabled = false;
+
+    input.focus();
+
+}
+
+
+
+/* =========================================
+   NEW CHAT
+========================================= */
+
+function startNewChat() {
+
+    chatBox.innerHTML = "";
+
+
+    const welcome =
+        document.createElement("div");
+
+    welcome.id =
+        "welcome-screen";
+
+    welcome.className =
+        "welcome";
+
+
+    welcome.innerHTML = `
+
+        <div class="welcome-icon">
+            V
+        </div>
+
+        <h1>
+            Vishal's Project Explainer
+        </h1>
+
+        <p>
+            Ask me about my projects, contributions,
+            technologies, skills, or education.
+        </p>
+
+        <div class="suggestions">
+
+            <button
+                onclick="sendQuick('Tell me about your projects')"
+            >
+                <span class="suggestion-icon">📁</span>
+
+                <span>
+                    <strong>My projects</strong>
+
+                    <small>
+                        Explore the projects I've built
+                    </small>
+                </span>
+            </button>
+
+
+            <button
+                onclick="sendQuick('What did you contribute to SkillSense?')"
+            >
+                <span class="suggestion-icon">🧩</span>
+
+                <span>
+                    <strong>My contributions</strong>
+
+                    <small>
+                        What I worked on in each project
+                    </small>
+                </span>
+            </button>
+
+
+            <button
+                onclick="sendQuick('What technologies do you use?')"
+            >
+                <span class="suggestion-icon">💻</span>
+
+                <span>
+                    <strong>Technical skills</strong>
+
+                    <small>
+                        Languages and technologies I use
+                    </small>
+                </span>
+            </button>
+
+
+            <button
+                onclick="sendQuick('What is RecoverAI?')"
+            >
+                <span class="suggestion-icon">🚀</span>
+
+                <span>
+                    <strong>RecoverAI</strong>
+
+                    <small>
+                        Learn about my buildathon project
+                    </small>
+                </span>
+            </button>
+
+        </div>
+
+    `;
+
+
+    chatBox.appendChild(
+        welcome
+    );
+
+}
+
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+            && !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
