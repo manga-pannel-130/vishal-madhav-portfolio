@@ -1,6 +1,6 @@
 # backend/chatbot.py
 
-from knowledge import (
+from backend.knowledge import (
     PROFILE,
     PROJECTS,
     PAST_PROJECTS,
@@ -11,8 +11,8 @@ from knowledge import (
     CURRENTLY_WORKING_ON,
 )
 
-from guardrails import check_guardrails
-from llm import LLMClient
+from backend.guardrails import check_guardrails
+from backend.llm import LLMClient
 
 
 _llm_client = None

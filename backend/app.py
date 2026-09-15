@@ -4,8 +4,8 @@ from pathlib import Path
 
 from flask import Flask, render_template, request, jsonify, abort
 
-from chatbot import get_response
-from knowledge import PROJECTS
+from backend.chatbot import get_response
+from backend.knowledge import PROJECTS
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
