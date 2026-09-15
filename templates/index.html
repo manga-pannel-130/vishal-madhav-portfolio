@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -10,778 +8,465 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Vishal's Project Explainer</title>
+    <title>Vishal Madhav — The Build Archive</title>
+
+    <meta
+        name="description"
+        content="Vishal Madhav — a build archive exploring AI systems through projects, experiments and problem solving."
+    >
 
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='styles.css') }}"
     >
-
 </head>
-
 
 <body>
 
-<div class="app">
+<header class="site-header">
+
+    <a href="/" class="logo">
+        VISHAL MADHAV
+    </a>
+
+    <nav class="nav-links">
+        <a href="#archive">Archive</a>
+        <a href="#about">About</a>
+        <a href="#now">Now</a>
+    </nav>
+
+    <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme"
+    >
+        <span id="themeIcon">◐</span>
+    </button>
+
+</header>
 
 
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
+<main>
 
-    <aside class="sidebar">
+    <!-- HERO -->
 
-        <div class="sidebar-top">
+    <section class="hero section-container">
 
-            <div class="brand">
+        <div class="hero-label">
+            <span class="status-dot"></span>
+            COMPUTER SCIENCE · AI SYSTEMS
+        </div>
 
-                <div class="brand-icon">
-                    V
-                </div>
+        <h1>
+            THE<br>
+            BUILD<br>
+            ARCHIVE
+        </h1>
 
-                <span>
-                    Vishal AI
-                </span>
+        <div class="hero-bottom">
 
+            <p class="hero-tagline">
+                Figuring out how everything works,
+                one build at a time.
+            </p>
+
+            <p class="hero-description">
+                A collection of things I've built,
+                experimented with, and learned from
+                along the way.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ARCHIVE -->
+
+    <section
+        class="archive section-container"
+        id="archive"
+    >
+
+        <div class="section-heading">
+            <span>01</span>
+            <h2>ARCHIVE</h2>
+        </div>
+
+
+        <!-- PAST -->
+
+        <div class="archive-group">
+
+            <div class="archive-group-header">
+                <span>PAST BUILDS</span>
+                <span>02 PROJECTS</span>
             </div>
 
+            {% for project_id in ["skillsense", "hiring-agent"] %}
 
-            <button
-                class="new-chat"
-                onclick="startNewChat()"
+            {% set project = projects[project_id] %}
+
+            <a
+                href="{{ url_for('project', project_id=project_id) }}"
+                class="project-row"
             >
 
-                <span class="plus">
-                    +
-                </span>
-
-                New chat
-
-            </button>
-
-
-            <div class="sidebar-section">
-
-                <div class="section-title">
-                    Projects
+                <div class="project-number">
+                    {{ project.number }}
                 </div>
 
+                <div class="project-main">
 
-                <button
-                    class="sidebar-project"
-                    onclick="sendQuick('Tell me about SkillSense')"
-                >
-                    <span>◈</span>
-                    SkillSense
-                </button>
+                    <div class="project-title-line">
 
+                        <h3>
+                            {{ project.title }}
+                        </h3>
 
-                <button
-                    class="sidebar-project"
-                    onclick="sendQuick('Tell me about RecoverAI')"
-                >
-                    <span>◈</span>
-                    RecoverAI
-                </button>
+                        <span class="ownership">
+                            {{ project.ownership }}
+                        </span>
 
+                    </div>
 
-                <button
-                    class="sidebar-project"
-                    onclick="sendQuick('Tell me about MealMate')"
-                >
-                    <span>◈</span>
-                    MealMate
-                </button>
+                    <p>
+                        {{ project.short_description }}
+                    </p>
 
+                </div>
 
-                <button
-                    class="sidebar-project"
-                    onclick="sendQuick('Tell me about Cryptera 2K26')"
-                >
-                    <span>◈</span>
-                    Cryptera 2K26
-                </button>
+                <div class="project-arrow">
+                    ↗
+                </div>
 
+            </a>
 
-                <button
-                    class="sidebar-project"
-                    onclick="sendQuick('Tell me about ElevateGYM')"
-                >
-                    <span>◈</span>
-                    ElevateGYM
-                </button>
-
-            </div>
+            {% endfor %}
 
         </div>
 
 
-        <div class="sidebar-bottom">
+        <!-- CURRENT -->
 
-            <div class="profile-mini">
+        <div class="archive-group current-group">
 
-                <div class="profile-avatar">
-                    V
-                </div>
-
-                <div>
-
-                    <div class="profile-name">
-                        Vishal Madhav
-                    </div>
-
-                    <div class="profile-role">
-                        CSE Student
-                    </div>
-
-                </div>
-
+            <div class="archive-group-header">
+                <span>CURRENT BUILDS</span>
+                <span>02 PROJECTS</span>
             </div>
+
+            {% for project_id in ["recoverai", "had"] %}
+
+            {% set project = projects[project_id] %}
+
+            <a
+                href="{{ url_for('project', project_id=project_id) }}"
+                class="project-row"
+            >
+
+                <div class="project-number">
+                    {{ project.number }}
+                </div>
+
+                <div class="project-main">
+
+                    <div class="project-title-line">
+
+                        <h3>
+                            {{ project.title }}
+                        </h3>
+
+                        <span class="ownership">
+                            {{ project.ownership }}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ project.short_description }}
+                    </p>
+
+                </div>
+
+                <div class="project-status">
+                    {{ project.status }}
+                </div>
+
+                <div class="project-arrow">
+                    ↗
+                </div>
+
+            </a>
+
+            {% endfor %}
 
         </div>
 
-    </aside>
+    </section>
 
 
+    <!-- ABOUT -->
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================== -->
+    <section
+        class="about section-container"
+        id="about"
+    >
 
-    <main class="main">
+        <div class="section-heading">
+            <span>02</span>
+            <h2>ABOUT</h2>
+        </div>
 
+        <div class="about-grid">
 
-        <!-- Top Bar -->
-
-        <header class="topbar">
-
-            <div class="mobile-brand">
-
-                <div class="brand-icon">
-                    V
-                </div>
-
-                <span>
-                    Vishal AI
-                </span>
-
+            <div class="about-label">
+                A LITTLE ABOUT ME
             </div>
 
+            <div class="about-content">
 
-            <div class="model-name">
-
-                Project Explainer
-
-                <span class="status-dot"></span>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- Chat Area -->
-
-        <section
-            id="chat-box"
-            class="chat-box"
-            aria-live="polite"
-        >
-
-            <!-- Welcome Screen -->
-
-            <div
-                id="welcome-screen"
-                class="welcome"
-            >
-
-                <div class="welcome-icon">
-                    V
-                </div>
-
-                <h1>
-                    Vishal's Project Explainer
-                </h1>
-
-                <p>
-                    Ask me about my projects, contributions,
-                    technologies, skills, or education.
+                <p class="about-large">
+                    I'm Vishal — a Computer Science
+                    Engineering student exploring
+                    what it takes to build useful
+                    AI systems.
                 </p>
 
+                <p>
+                    Most of what ends up here starts
+                    with a problem I want to understand.
+                    I learn by trying to turn that
+                    problem into something that actually
+                    works.
+                </p>
 
-                <!-- Suggested Questions -->
+                <p>
+                    Some projects work well.
+                    Some still need work.
+                    That's part of the archive.
+                </p>
 
-                <div class="suggestions">
+            </div>
 
+        </div>
 
-                    <button
-                        onclick="sendQuick('Tell me about your projects')"
-                    >
-
-                        <span class="suggestion-icon">
-                            📁
-                        </span>
-
-                        <span>
-                            <strong>My projects</strong>
-                            <small>
-                                Explore the projects I've built
-                            </small>
-                        </span>
-
-                    </button>
+    </section>
 
 
-                    <button
-                        onclick="sendQuick('What did you contribute to SkillSense?')"
-                    >
+    <!-- NOW -->
 
-                        <span class="suggestion-icon">
-                            🧩
-                        </span>
+    <section
+        class="now section-container"
+        id="now"
+    >
 
-                        <span>
-                            <strong>Skillsense</strong>
-                            <small>
-                                Learn about my skillsense project contributions.
-                            </small>
-                        </span>
+        <div class="section-heading">
+            <span>03</span>
+            <h2>NOW</h2>
+        </div>
 
-                    </button>
+        <div class="now-grid">
 
+            <div class="now-label">
+                CURRENTLY
+            </div>
 
-                    <button
-                        onclick="sendQuick('What technologies do you use?')"
-                    >
+            <div>
 
-                        <span class="suggestion-icon">
-                            💻
-                        </span>
+                <p class="now-title">
+                    BUILDING AI SYSTEMS
+                </p>
 
-                        <span>
-                            <strong>Technical skills</strong>
-                            <small>
-                                Languages and technologies I use
-                            </small>
-                        </span>
+                <p class="now-description">
+                    Currently refining RecoverAI,
+                    working on a team project involving
+                    CAD, FEA and topology optimisation,
+                    and figuring out what the next
+                    useful system to build looks like.
+                </p>
 
-                    </button>
+            </div>
 
+        </div>
 
-                    <button
-                        onclick="sendQuick('What is RecoverAI?')"
-                    >
-
-                        <span class="suggestion-icon">
-                            🚀
-                        </span>
-
-                        <span>
-                            <strong>RecoverAI</strong>
-                            <small>
-                                Learn about my buildathon project
-                            </small>
-                        </span>
-
-                    </button>
+    </section>
 
 
+    <!-- TOOLS -->
+
+    <section class="tools section-container">
+
+        <div class="section-heading">
+            <span>04</span>
+            <h2>TOOLS</h2>
+        </div>
+
+        <div class="tools-list">
+
+            <span>Python</span>
+            <span>React</span>
+            <span>FastAPI</span>
+            <span>Node.js</span>
+            <span>PostgreSQL</span>
+            <span>SQL</span>
+            <span>Git</span>
+            <span>Artificial Intelligence</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer section-container">
+
+        <div>
+            VISHAL MADHAV
+        </div>
+
+        <div>
+            BUILDING AI SYSTEMS
+        </div>
+
+        <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            LINKEDIN ↗
+        </a>
+
+    </footer>
+
+</main>
+
+
+<!-- ASK THE ARCHIVE -->
+
+<button
+    class="archive-ai-button"
+    id="openChat"
+>
+    <span>✦</span>
+    ASK THE ARCHIVE
+</button>
+
+
+<div
+    class="chat-overlay"
+    id="chatOverlay"
+>
+
+    <div
+        class="chat-panel"
+        id="chatPanel"
+    >
+
+        <div class="chat-header">
+
+            <div>
+                <div class="chat-kicker">
+                    ✦ AI PROJECT EXPLORER
+                </div>
+
+                <h2>
+                    ASK THE ARCHIVE
+                </h2>
+            </div>
+
+            <button
+                class="chat-close"
+                id="closeChat"
+                aria-label="Close chat"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="chat-intro">
+
+            <p>
+                Curious about a project?
+                Ask me about why I built it,
+                what I worked on, or how it works.
+            </p>
+
+        </div>
+
+
+        <div
+            class="chat-messages"
+            id="chatMessages"
+        >
+
+            <div class="chat-message assistant">
+
+                <div class="message-label">
+                    ARCHIVE
+                </div>
+
+                <div class="message-content">
+                    Hey. Ask me about SkillSense,
+                    Hiring Agent, RecoverAI or HAD.
+                    I can tell you what I built,
+                    what I contributed, and what
+                    I learned along the way.
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
 
+        <div class="quick-prompts">
 
-        <!-- Thinking Indicator -->
+            <button data-prompt="Tell me about RecoverAI">
+                RecoverAI
+            </button>
 
-        <div
-            id="typing"
-            class="typing hidden"
-            aria-live="polite"
-        >
+            <button data-prompt="How did Hiring Agent come from SkillSense?">
+                SkillSense → Hiring Agent
+            </button>
 
-            <div class="typing-avatar">
-                V
-            </div>
+            <button data-prompt="What did you build in SkillSense?">
+                My SkillSense contribution
+            </button>
 
-            <div class="typing-content">
-
-                <span class="typing-text">
-                    Thinking
-                </span>
-
-                <span class="typing-dots">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </span>
-
-            </div>
+            <button data-prompt="What is HAD?">
+                What is HAD?
+            </button>
 
         </div>
 
 
+        <div class="chat-input-area">
 
-        <!-- Input Area -->
+            <textarea
+                id="chatInput"
+                rows="1"
+                placeholder="Ask about the archive..."
+            ></textarea>
 
-        <div class="input-wrapper">
-
-            <div class="input-box">
-
-                <input
-                    type="text"
-                    id="user-input"
-                    placeholder="Ask about my projects..."
-                    autocomplete="off"
-                    aria-label="Ask about Vishal's projects"
-                >
-
-
-                <button
-                    id="send-button"
-                    class="send-button"
-                    onclick="sendMessage()"
-                    aria-label="Send message"
-                >
-
-                    <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-
-                        <line
-                            x1="22"
-                            y1="2"
-                            x2="11"
-                            y2="13"
-                        ></line>
-
-                        <polygon
-                            points="22 2 15 22 11 13 2 9 22 2"
-                        ></polygon>
-
-                    </svg>
-
-                </button>
-
-            </div>
-
-
-            <div class="input-hint">
-
-                Vishal's AI can answer questions about
-                projects, skills, education and career goals.
-
-            </div>
+            <button
+                id="sendMessage"
+                class="send-button"
+                aria-label="Send message"
+            >
+                ↑
+            </button>
 
         </div>
 
-
-
-    </main>
+    </div>
 
 </div>
 
 
-
-<script>
-
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const input =
-    document.getElementById("user-input");
-
-const chatBox =
-    document.getElementById("chat-box");
-
-const typing =
-    document.getElementById("typing");
-
-const sendButton =
-    document.getElementById("send-button");
-
-const welcomeScreen =
-    document.getElementById("welcome-screen");
-
-
-
-/* =========================================
-   ADD MESSAGE
-========================================= */
-
-function addMessage(message, sender) {
-
-    /*
-     * Remove welcome screen once
-     * conversation starts.
-     */
-
-    if (welcomeScreen) {
-
-        welcomeScreen.style.display =
-            "none";
-
-    }
-
-
-    const messageRow =
-        document.createElement("div");
-
-    messageRow.className =
-        sender === "user"
-        ? "message-row user-row"
-        : "message-row bot-row";
-
-
-    const avatar =
-        document.createElement("div");
-
-    avatar.className =
-        sender === "user"
-        ? "message-avatar user-avatar"
-        : "message-avatar bot-avatar";
-
-
-    avatar.innerText =
-        sender === "user"
-        ? "You"
-        : "V";
-
-
-    const messageContent =
-        document.createElement("div");
-
-    messageContent.className =
-        "message-content";
-
-
-    const messageText =
-        document.createElement("div");
-
-    messageText.className =
-        "message-text";
-
-    messageText.innerText =
-        message;
-
-
-    messageContent.appendChild(
-        messageText
-    );
-
-
-    messageRow.appendChild(
-        avatar
-    );
-
-    messageRow.appendChild(
-        messageContent
-    );
-
-
-    chatBox.appendChild(
-        messageRow
-    );
-
-
-    chatBox.scrollTop =
-        chatBox.scrollHeight;
-}
-
-
-
-/* =========================================
-   QUICK QUESTIONS
-========================================= */
-
-function sendQuick(question) {
-
-    input.value =
-        question;
-
-    sendMessage();
-}
-
-
-
-/* =========================================
-   SEND MESSAGE
-========================================= */
-
-async function sendMessage() {
-
-    const message =
-        input.value.trim();
-
-
-    if (message === "") {
-
-        return;
-
-    }
-
-
-    addMessage(
-        message,
-        "user"
-    );
-
-
-    input.value = "";
-
-
-    input.disabled = true;
-
-    sendButton.disabled = true;
-
-
-    typing.classList.remove(
-        "hidden"
-    );
-
-
-    chatBox.scrollTop =
-        chatBox.scrollHeight;
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/chat",
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        message: message
-                    })
-
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server error"
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        /*
-         * Artificial delay makes the
-         * thinking state visible.
-         */
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    700
-                )
-        );
-
-
-        typing.classList.add(
-            "hidden"
-        );
-
-
-        addMessage(
-            data.response,
-            "bot"
-        );
-
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-
-        typing.classList.add(
-            "hidden"
-        );
-
-
-        addMessage(
-            "I couldn't connect to the chatbot. "
-            + "Please make sure the Flask server is running.",
-            "bot"
-        );
-
-    }
-
-
-    input.disabled = false;
-
-    sendButton.disabled = false;
-
-    input.focus();
-
-}
-
-
-
-/* =========================================
-   NEW CHAT
-========================================= */
-
-function startNewChat() {
-
-    chatBox.innerHTML = "";
-
-
-    const welcome =
-        document.createElement("div");
-
-    welcome.id =
-        "welcome-screen";
-
-    welcome.className =
-        "welcome";
-
-
-    welcome.innerHTML = `
-
-        <div class="welcome-icon">
-            V
-        </div>
-
-        <h1>
-            Vishal's Project Explainer
-        </h1>
-
-        <p>
-            Ask me about my projects, contributions,
-            technologies, skills, or education.
-        </p>
-
-        <div class="suggestions">
-
-            <button
-                onclick="sendQuick('Tell me about your projects')"
-            >
-                <span class="suggestion-icon">📁</span>
-
-                <span>
-                    <strong>My projects</strong>
-
-                    <small>
-                        Explore the projects I've built
-                    </small>
-                </span>
-            </button>
-
-
-            <button
-                onclick="sendQuick('What did you contribute to SkillSense?')"
-            >
-                <span class="suggestion-icon">🧩</span>
-
-                <span>
-                    <strong>My contributions</strong>
-
-                    <small>
-                        What I worked on in each project
-                    </small>
-                </span>
-            </button>
-
-
-            <button
-                onclick="sendQuick('What technologies do you use?')"
-            >
-                <span class="suggestion-icon">💻</span>
-
-                <span>
-                    <strong>Technical skills</strong>
-
-                    <small>
-                        Languages and technologies I use
-                    </small>
-                </span>
-            </button>
-
-
-            <button
-                onclick="sendQuick('What is RecoverAI?')"
-            >
-                <span class="suggestion-icon">🚀</span>
-
-                <span>
-                    <strong>RecoverAI</strong>
-
-                    <small>
-                        Learn about my buildathon project
-                    </small>
-                </span>
-            </button>
-
-        </div>
-
-    `;
-
-
-    chatBox.appendChild(
-        welcome
-    );
-
-}
-
-
-
-/* =========================================
-   ENTER KEY
-========================================= */
-
-input.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-            && !event.shiftKey
-        ) {
-
-            event.preventDefault();
-
-            sendMessage();
-
-        }
-
-    }
-);
-
-
-</script>
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
-
 </html>

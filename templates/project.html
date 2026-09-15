@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ project.title }} — Vishal Madhav
+    </title>
+
+    <meta
+        name="description"
+        content="{{ project.short_description }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='styles.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<header class="site-header">
+
+    <a href="/" class="logo">
+        VISHAL MADHAV
+    </a>
+
+    <nav class="nav-links">
+        <a href="/#archive">Archive</a>
+        <a href="/#about">About</a>
+        <a href="/#now">Now</a>
+    </nav>
+
+    <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme"
+    >
+        <span id="themeIcon">◐</span>
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="project-hero section-container">
+
+        <a
+            href="/#archive"
+            class="back-link"
+        >
+            ← BACK TO ARCHIVE
+        </a>
+
+
+        <div class="project-meta">
+
+            <span>
+                {{ project.category }}
+            </span>
+
+            <span>
+                {{ project.ownership }}
+            </span>
+
+            <span>
+                {{ project.status }}
+            </span>
+
+        </div>
+
+
+        <h1 class="project-page-title">
+            {{ project.title }}
+        </h1>
+
+
+        <p class="project-page-description">
+            {{ project.short_description }}
+        </p>
+
+    </section>
+
+
+    <section class="project-content section-container">
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                WHY I BUILT IT
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.why }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                THE IDEA
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.overview }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                MY CONTRIBUTION
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.my_contribution }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                HOW IT WORKS
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.technical }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                WHAT WAS HARD
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.challenge }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                WHAT I LEARNED
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.lesson }}
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if project.weakness %}
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                WHAT STILL NEEDS WORK
+            </div>
+
+            <div class="detail-content">
+                <p>
+                    {{ project.weakness }}
+                </p>
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="project-detail-block">
+
+            <div class="detail-label">
+                TOOLS
+            </div>
+
+            <div class="detail-content">
+
+                <div class="project-tech-list">
+
+                    {% for tech in project.technologies %}
+
+                    <span>
+                        {{ tech }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="project-links">
+
+            {% if project.github %}
+
+            <a
+                href="{{ project.github }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-external-link"
+            >
+                GITHUB ↗
+            </a>
+
+            {% endif %}
+
+
+            {% if project.live %}
+
+            <a
+                href="{{ project.live }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-external-link"
+            >
+                LIVE PROJECT ↗
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <section class="project-takeaway section-container">
+
+        <div class="takeaway-label">
+            IF YOU ONLY REMEMBER ONE THING
+        </div>
+
+        <p>
+            {{ project.remember }}
+        </p>
+
+    </section>
+
+
+    <footer class="site-footer section-container">
+
+        <div>
+            VISHAL MADHAV
+        </div>
+
+        <div>
+            BUILDING AI SYSTEMS
+        </div>
+
+        <a href="/#archive">
+            ARCHIVE ↗
+        </a>
+
+    </footer>
+
+</main>
+
+
+<button
+    class="archive-ai-button"
+    id="openChat"
+>
+    <span>✦</span>
+    ASK THE ARCHIVE
+</button>
+
+
+<div
+    class="chat-overlay"
+    id="chatOverlay"
+>
+
+    <div class="chat-panel">
+
+        <div class="chat-header">
+
+            <div>
+                <div class="chat-kicker">
+                    ✦ AI PROJECT EXPLORER
+                </div>
+
+                <h2>
+                    ASK THE ARCHIVE
+                </h2>
+            </div>
+
+            <button
+                class="chat-close"
+                id="closeChat"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="chat-intro">
+
+            <p>
+                Ask me anything about the projects
+                documented in the archive.
+            </p>
+
+        </div>
+
+
+        <div
+            class="chat-messages"
+            id="chatMessages"
+        >
+
+            <div class="chat-message assistant">
+
+                <div class="message-label">
+                    ARCHIVE
+                </div>
+
+                <div class="message-content">
+                    Ask me about this project,
+                    another build, or how the
+                    projects connect.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-prompts">
+
+            <button data-prompt="Why was this project built?">
+                Why build it?
+            </button>
+
+            <button data-prompt="What did Vishal personally contribute?">
+                My contribution
+            </button>
+
+            <button data-prompt="How does this project work?">
+                How it works
+            </button>
+
+        </div>
+
+
+        <div class="chat-input-area">
+
+            <textarea
+                id="chatInput"
+                rows="1"
+                placeholder="Ask about the archive..."
+            ></textarea>
+
+            <button
+                id="sendMessage"
+                class="send-button"
+            >
+                ↑
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
