@@ -32,7 +32,7 @@
     <nav class="nav-links">
         <a href="#archive">Archive</a>
         <a href="#about">About</a>
-        <a href="#now">Now</a>
+        <a href="#contact">Contact</a>
     </nav>
 
     <button
@@ -49,7 +49,6 @@
 <main>
 
     <!-- HERO -->
-
     <section class="hero section-container">
 
         <div class="hero-label">
@@ -57,29 +56,33 @@
             COMPUTER SCIENCE · AI SYSTEMS
         </div>
 
-        <h1>
-            THE<br>
-            BUILD<br>
-            ARCHIVE
-        </h1>
+        <div class="hero-content">
+
+            <h1>
+                THE<br>
+                BUILD<br>
+                ARCHIVE
+            </h1>
+
+            <div class="hero-photo">
+                <img
+                    src="{{ url_for('static', filename='images/vishal.png') }}"
+                    alt="Vishal Madhav"
+                >
+            </div>
+
+        </div>
 
         <div class="hero-bottom">
 
             <p class="hero-tagline">
-                Figuring out how everything works,
+                Figuring out how everything works,<br>
                 one build at a time.
-            </p>
-
-            <p class="hero-description">
-                A collection of things I've built,
-                experimented with, and learned from
-                along the way.
             </p>
 
         </div>
 
     </section>
-
 
     <!-- ARCHIVE -->
 
@@ -100,10 +103,10 @@
 
             <div class="archive-group-header">
                 <span>PAST BUILDS</span>
-                <span>02 PROJECTS</span>
+                <span>01 PROJECT</span>
             </div>
 
-            {% for project_id in ["skillsense", "hiring-agent"] %}
+            {% for project_id in ["skillsense"] %}
 
             {% set project = projects[project_id] %}
 
@@ -153,10 +156,16 @@
 
             <div class="archive-group-header">
                 <span>CURRENT BUILDS</span>
-                <span>02 PROJECTS</span>
+                <span>05 PROJECTS</span>
             </div>
 
-            {% for project_id in ["recoverai", "had"] %}
+            {% for project_id in [
+                "hiring-agent",
+                "recoverai",
+                "had",
+                "ai-soc-analyst",
+                "mealmate"
+            ] %}
 
             {% set project = projects[project_id] %}
 
@@ -207,7 +216,6 @@
 
 
     <!-- ABOUT -->
-
     <section
         class="about section-container"
         id="about"
@@ -227,24 +235,22 @@
             <div class="about-content">
 
                 <p class="about-large">
-                    I'm Vishal — a Computer Science
-                    Engineering student exploring
-                    what it takes to build useful
-                    AI systems.
+                    I'm Vishal Madhav,<br> a Computer Science
+                    who likes figuring things out by
+                    building them.
                 </p>
 
                 <p>
-                    Most of what ends up here starts
-                    with a problem I want to understand.
-                    I learn by trying to turn that
-                    problem into something that actually
-                    works.
+                    Most of my projects start with me being
+                    curious about how something works, or
+                    wondering if I can build a better version
+                    of it.
                 </p>
 
                 <p>
-                    Some projects work well.
-                    Some still need work.
-                    That's part of the archive.
+                    I'm mostly interested in building and understanding
+                    AI systems, automation, and the engineering
+                    behind making them actually useful.
                 </p>
 
             </div>
@@ -254,69 +260,70 @@
     </section>
 
 
-    <!-- NOW -->
+    <!-- CONTACT -->
 
     <section
-        class="now section-container"
-        id="now"
+        class="contact section-container"
+        id="contact"
     >
 
         <div class="section-heading">
             <span>03</span>
-            <h2>NOW</h2>
+            <h2>CONTACT</h2>
         </div>
 
-        <div class="now-grid">
+        <div class="contact-grid">
 
-            <div class="now-label">
-                CURRENTLY
+            <div class="contact-label">
+                GET IN TOUCH
             </div>
 
-            <div>
+            <div class="contact-content">
 
-                <p class="now-title">
-                    BUILDING AI SYSTEMS
+                <p class="contact-title">
+                    Have something worth building?
                 </p>
 
-                <p class="now-description">
-                    Currently refining RecoverAI,
-                    working on a team project involving
-                    CAD, FEA and topology optimisation,
-                    and figuring out what the next
-                    useful system to build looks like.
+                <p class="contact-description">
+                    I'm always open to interesting projects,
+                    ideas, collaborations, or just a good
+                    conversation about something you're building.
                 </p>
+
+                <div class="contact-links">
+
+                    <a
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span>LINKEDIN</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span>INSTAGRAM</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a
+                        href="mailto:your.email@example.com"
+                    >
+                        <span>EMAIL</span>
+                        <span>↗</span>
+                    </a>
+
+                </div>
 
             </div>
 
         </div>
 
     </section>
-
-
-    <!-- TOOLS -->
-
-    <section class="tools section-container">
-
-        <div class="section-heading">
-            <span>04</span>
-            <h2>TOOLS</h2>
-        </div>
-
-        <div class="tools-list">
-
-            <span>Python</span>
-            <span>React</span>
-            <span>FastAPI</span>
-            <span>Node.js</span>
-            <span>PostgreSQL</span>
-            <span>SQL</span>
-            <span>Git</span>
-            <span>Artificial Intelligence</span>
-
-        </div>
-
-    </section>
-
 
     <!-- FOOTER -->
 
@@ -411,10 +418,11 @@
 
                 <div class="message-content">
                     Hey. Ask me about SkillSense,
-                    Hiring Agent, RecoverAI or HAD.
+                    Hiring Agent, RecoverAI, HAD,
+                    AI SOC Analyst or MealMate.
                     I can tell you what I built,
                     what I contributed, and what
-                    I learned along the way.
+                    I'm currently figuring out.
                 </div>
 
             </div>
@@ -424,12 +432,12 @@
 
         <div class="quick-prompts">
 
-            <button data-prompt="Tell me about RecoverAI">
-                RecoverAI
+            <button data-prompt="Tell me about Hiring Agent">
+                Hiring Agent
             </button>
 
-            <button data-prompt="How did Hiring Agent come from SkillSense?">
-                SkillSense → Hiring Agent
+            <button data-prompt="Tell me about RecoverAI">
+                RecoverAI
             </button>
 
             <button data-prompt="What did you build in SkillSense?">
@@ -438,6 +446,10 @@
 
             <button data-prompt="What is HAD?">
                 What is HAD?
+            </button>
+
+            <button data-prompt="What does MealMate do?">
+                MealMate
             </button>
 
         </div>

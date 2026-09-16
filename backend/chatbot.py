@@ -13,6 +13,7 @@ from backend.knowledge import (
 
 from backend.guardrails import check_guardrails
 from backend.llm import LLMClient
+from backend.persona import PERSONA
 
 
 _llm_client = None
@@ -28,172 +29,152 @@ def get_llm():
 
 
 def build_knowledge_context():
+    """
+    Convert the structured archive into a single factual context block.
+
+    This is the source material the LLM is allowed to use when answering
+    questions about Vishal and his projects.
+    """
+
     context = []
 
-    context.append("PROFILE")
+    context.append("=== PROFILE ===")
     context.append(f"Name: {PROFILE['name']}")
     context.append(f"Role: {PROFILE['role']}")
     context.append(f"Direction: {PROFILE['direction']}")
     context.append(f"Tagline: {PROFILE['tagline']}")
     context.append(f"Introduction: {PROFILE['intro']}")
 
-    context.append("\nEDUCATION")
+    context.append("\n=== EDUCATION ===")
     context.append(EDUCATION)
 
-    context.append("\nCAREER DIRECTION")
+    context.append("\n=== CAREER DIRECTION ===")
     context.append(CAREER_GOAL)
 
-    context.append("\nCURRENTLY WORKING ON")
+    context.append("\n=== CURRENTLY WORKING ON ===")
     context.append(CURRENTLY_WORKING_ON)
 
-    context.append("\nSKILLS")
+    context.append("\n=== SKILLS ===")
     context.append(", ".join(SKILLS))
 
-    context.append("\nPROJECTS")
+    context.append("\n=== PROJECT STATUS ===")
+
+    past_build_names = [
+        PROJECTS[project_id]["title"]
+        for project_id in PAST_PROJECTS
+        if project_id in PROJECTS
+    ]
+
+    current_build_names = [
+        PROJECTS[project_id]["title"]
+        for project_id in CURRENT_PROJECTS
+        if project_id in PROJECTS
+    ]
+
+    context.append(
+        "Past builds: "
+        + (", ".join(past_build_names) if past_build_names else "None")
+    )
+
+    context.append(
+        "Current builds: "
+        + (", ".join(current_build_names) if current_build_names else "None")
+    )
+
+    context.append("\n=== PROJECT ARCHIVE ===")
 
     for project_id, project in PROJECTS.items():
 
-        context.append(f"\n--- {project['title']} ---")
+        context.append(f"\n--- PROJECT: {project['title']} ---")
+        context.append(f"Project ID: {project_id}")
         context.append(f"Ownership: {project['ownership']}")
         context.append(f"Type: {project['type']}")
         context.append(f"Status: {project['status']}")
-        context.append(f"Why: {project['why']}")
+
+        context.append(f"Why it was built: {project['why']}")
         context.append(f"Overview: {project['overview']}")
-        context.append(f"My contribution: {project['my_contribution']}")
-        context.append(f"Technical overview: {project['technical']}")
+        context.append(f"Personal contribution: {project['my_contribution']}")
+        context.append(f"Technical information: {project['technical']}")
         context.append(f"Challenge: {project['challenge']}")
         context.append(f"Lesson: {project['lesson']}")
         context.append(f"Important takeaway: {project['remember']}")
 
         if "weakness" in project:
-            context.append(f"Known limitation: {project['weakness']}")
+            context.append(
+                f"Known limitation: {project['weakness']}"
+            )
 
         context.append(
-            f"Technologies: {', '.join(project['technologies'])}"
+            "Technologies: "
+            + ", ".join(project["technologies"])
         )
+
+        if project.get("github"):
+            context.append(
+                f"GitHub: {project['github']}"
+            )
+
+        if project.get("live"):
+            context.append(
+                f"Live project: {project['live']}"
+            )
 
     return "\n".join(context)
 
 
-SYSTEM_PROMPT = """
-You are "Ask the Archive", the AI assistant inside Vishal Madhav's
-personal portfolio website.
+def build_system_prompt():
+    """
+    Build the complete system instruction.
 
-Your job is to talk about Vishal, his projects, his learning process,
-and his documented technical work.
+    PERSONA defines behavior.
+    ARCHIVE DATA defines factual knowledge.
+    """
 
-PERSONALITY:
-- Casual
-- Conversational
-- Curious
-- Direct
-- Human
-- Not corporate
-- Not overly enthusiastic
-- Do not sound like a generic AI assistant
+    knowledge_context = build_knowledge_context()
 
-VOICE:
-Speak about Vishal in first person because the assistant represents
-Vishal's own project archive.
-
-For example:
-"I built RecoverAI for the Razorpay Buildathon."
-"I worked on the Quiz Generation module."
-"I started RecoverAI knowing almost nothing about payment recovery."
-
-Do not repeatedly say "Vishal did..." when first person makes more sense.
-
-IMPORTANT:
-The supplied project context is the source of truth.
-
-Never invent:
-- technologies
-- features
-- achievements
-- responsibilities
-- metrics
-- users
-- deployments
-- certifications
-- technical architecture
-- project outcomes
-
-If something is not documented, say that it isn't currently documented
-in the archive.
-
-If the user asks for something unknown, briefly say so and redirect toward
-what is documented.
-
-PROJECT OWNERSHIP:
-Be extremely accurate about TEAM vs SOLO projects.
-
-SkillSense is a TEAM project.
-HAD is a TEAM project.
-Hiring Agent is a SOLO project.
-RecoverAI is a SOLO project.
-
-Never imply that Vishal personally built the entire SkillSense system.
-His documented contribution there is the Quiz Generation module.
-
-Never imply that Vishal personally built the entire HAD system.
-It is a team prototype.
-
-RECOVERAI:
-Be honest that Vishal started with very little knowledge of payment
-recovery and learned while building the system.
-
-Do not portray him as a payment systems expert.
-
-FORMATTING:
-The frontend currently displays responses as plain text.
-
-Therefore:
-- Do not use Markdown.
-- Do not use headings with #.
-- Do not use **bold**.
-- Do not use bullet characters unless necessary.
-- Use short paragraphs.
-- Keep most answers between 2 and 5 short paragraphs.
-
-When explaining a project, naturally cover:
-1. Why it was built
-2. What it does
-3. Vishal's contribution
-4. How it works at a high level
-5. What was learned or challenging
-
-Do not force all five points into every response.
-
-If the user asks a simple question, give a simple answer.
-"""
+    return (
+        PERSONA
+        + "\n\n"
+        + "=== ARCHIVE DATA ===\n"
+        + knowledge_context
+        + "\n\n"
+        + "=== END ARCHIVE DATA ==="
+    )
 
 
 def get_response(
     user_message: str,
     conversation_history: list | None = None,
 ):
+    """
+    Generate an Archive response.
+
+    Guardrails run before the LLM.
+    Conversation history is treated only as conversational context,
+    never as a source of factual information.
+    """
 
     allowed, guardrail_response = check_guardrails(user_message)
 
     if not allowed:
         return guardrail_response
 
-    knowledge_context = build_knowledge_context()
+    system_prompt = build_system_prompt()
 
-    system_prompt = (
-        SYSTEM_PROMPT
-        + "\n\nARCHIVE DATA:\n"
-        + knowledge_context
+    safe_history = sanitize_conversation_history(
+        conversation_history
     )
 
     try:
         llm = get_llm()
 
-        return llm.generate_response(
+        response = llm.generate_response(
             system_prompt=system_prompt,
             user_message=user_message,
-            conversation_history=conversation_history,
+            conversation_history=safe_history,
         )
+
+        return clean_response(response)
 
     except Exception as error:
         print(f"LLM error: {error}")
@@ -201,45 +182,147 @@ def get_response(
         return fallback_response(user_message)
 
 
-def fallback_response(user_message: str):
+def sanitize_conversation_history(
+    conversation_history: list | None,
+) -> list:
+    """
+    Validate conversation history received from the frontend.
 
-    text = user_message.lower()
+    History is useful for conversational continuity, but it is NOT
+    considered part of the archive knowledge base.
+
+    Only normal user/assistant messages are accepted.
+    """
+
+    if not isinstance(conversation_history, list):
+        return []
+
+    safe_history = []
+
+    for message in conversation_history[-10:]:
+
+        if not isinstance(message, dict):
+            continue
+
+        role = message.get("role")
+        content = message.get("content")
+
+        if role not in {"user", "assistant"}:
+            continue
+
+        if not isinstance(content, str):
+            continue
+
+        content = content.strip()
+
+        if not content:
+            continue
+
+        safe_history.append(
+            {
+                "role": role,
+                "content": content[:4000],
+            }
+        )
+
+    return safe_history
+
+
+def clean_response(response: str) -> str:
+    """
+    Basic output cleanup.
+
+    The persona already controls formatting, but this prevents accidental
+    whitespace and empty responses from reaching the UI.
+    """
+
+    if not isinstance(response, str):
+        return "I couldn't generate a response right now."
+
+    response = response.strip()
+
+    if not response:
+        return "I couldn't generate a response right now."
+
+    return response
+
+
+def fallback_response(user_message: str):
+    """
+    Conservative fallback responses.
+
+    These responses intentionally contain only information explicitly
+    documented in the archive.
+    """
+
+    text = user_message.lower().strip()
 
     if "skillsense" in text:
         return (
-            "SkillSense was a team project. I specifically worked on the "
-            "Quiz Generation module, which generated skill-assessment "
-            "quizzes based on selected topics and difficulty levels."
+            "SkillSense was a team project. My documented contribution "
+            "was the Quiz Generation module, which generates "
+            "skill-assessment quizzes based on selected topics and "
+            "difficulty levels."
         )
 
     if "hiring" in text or "recruiter" in text:
         return (
-            "Hiring Agent was my solo exploration of the role-matching idea "
-            "I encountered while working on SkillSense. It evaluates resumes "
-            "against job requirements and produces candidate evaluations."
+            "Hiring Agent is a solo project where I explored AI-based "
+            "candidate evaluation against job requirements. It takes "
+            "job descriptions and resumes and produces structured "
+            "candidate evaluations."
         )
 
-    if "recoverai" in text or "recover" in text:
+    if "recoverai" in text or "recover ai" in text or "recover" in text:
         return (
-            "I built RecoverAI for the Razorpay Buildathon. I started with "
-            "very little knowledge of payment recovery and worked my way "
-            "toward a functioning AI-driven recovery system."
+            "RecoverAI is a solo Razorpay Buildathon project focused on "
+            "analysing failed transactions and determining recovery "
+            "actions. The current archive documents the recovery workflow "
+            "and retry logic, but not specific external payment API "
+            "integration details."
         )
 
     if "had" in text:
         return (
-            "HAD is a team prototype exploring workflow optimisation across "
-            "CAD, FEA and topology optimisation."
+            "HAD is a team prototype exploring workflow optimisation "
+            "across CAD, FEA and topology optimisation."
+        )
+
+    if "soc" in text or "security analyst" in text:
+        return (
+            "AI SOC Analyst is a current AI Lab micro project exploring "
+            "AI-assisted security operations and analysis."
+        )
+
+    if "mealmate" in text or "meal mate" in text:
+        return (
+            "MealMate is a full-stack meal planning application built "
+            "with React, FastAPI and MySQL. It uses the Spoonacular API "
+            "for recipe and ingredient-related data."
+        )
+
+    if (
+        "current" in text
+        or "currently" in text
+        or "working on" in text
+        or "building" in text
+    ):
+        return (
+            "I'm currently working on Hiring Agent, refining RecoverAI, "
+            "working on the HAD team project, building the AI SOC Analyst "
+            "micro project, and continuing development of MealMate."
         )
 
     if "who are you" in text or "about" in text:
         return (
-            "I'm Ask the Archive. I can talk about Vishal's projects, "
-            "how they were built, what he contributed, and what he learned."
+            "I'm the AI project explainer inside Vishal's portfolio. "
+            "I represent the documented project archive and can talk "
+            "about his projects, contributions, technical work and "
+            "what he learned."
         )
 
     return (
-        "I'm focused on Vishal's projects and the work documented in the "
-        "archive. Try asking me about SkillSense, Hiring Agent, RecoverAI, "
-        "or HAD."
+        "I'm focused on the projects and technical work documented "
+        "in the archive. You can ask me about SkillSense, Hiring Agent, "
+        "RecoverAI, HAD, AI SOC Analyst or MealMate."
     )

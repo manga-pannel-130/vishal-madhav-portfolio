@@ -37,7 +37,7 @@
     <nav class="nav-links">
         <a href="/#archive">Archive</a>
         <a href="/#about">About</a>
-        <a href="/#now">Now</a>
+        <a href="/#contact">Contact</a>
     </nav>
 
     <button
@@ -52,6 +52,8 @@
 
 
 <main>
+
+    <!-- PROJECT HERO -->
 
     <section class="project-hero section-container">
 
@@ -92,8 +94,12 @@
     </section>
 
 
+    <!-- PROJECT DETAILS -->
+
     <section class="project-content section-container">
 
+
+        <!-- WHY -->
 
         <div class="project-detail-block">
 
@@ -110,6 +116,8 @@
         </div>
 
 
+        <!-- IDEA -->
+
         <div class="project-detail-block">
 
             <div class="detail-label">
@@ -124,6 +132,8 @@
 
         </div>
 
+
+        <!-- CONTRIBUTION -->
 
         <div class="project-detail-block">
 
@@ -140,6 +150,8 @@
         </div>
 
 
+        <!-- TECHNICAL -->
+
         <div class="project-detail-block">
 
             <div class="detail-label">
@@ -154,6 +166,8 @@
 
         </div>
 
+
+        <!-- CHALLENGE -->
 
         <div class="project-detail-block">
 
@@ -170,6 +184,8 @@
         </div>
 
 
+        <!-- LESSON -->
+
         <div class="project-detail-block">
 
             <div class="detail-label">
@@ -184,6 +200,8 @@
 
         </div>
 
+
+        <!-- WEAKNESS / NEXT STEPS -->
 
         {% if project.weakness %}
 
@@ -203,6 +221,8 @@
 
         {% endif %}
 
+
+        <!-- TECHNOLOGIES -->
 
         <div class="project-detail-block">
 
@@ -228,6 +248,10 @@
 
         </div>
 
+
+        <!-- PROJECT LINKS -->
+
+        {% if project.github or project.live %}
 
         <div class="project-links">
 
@@ -260,8 +284,12 @@
 
         </div>
 
+        {% endif %}
+
     </section>
 
+
+    <!-- TAKEAWAY -->
 
     <section class="project-takeaway section-container">
 
@@ -275,6 +303,8 @@
 
     </section>
 
+
+    <!-- FOOTER -->
 
     <footer class="site-footer section-container">
 
@@ -295,6 +325,8 @@
 </main>
 
 
+<!-- ASK THE ARCHIVE -->
+
 <button
     class="archive-ai-button"
     id="openChat"
@@ -311,9 +343,12 @@
 
     <div class="chat-panel">
 
+        <!-- CHAT HEADER -->
+
         <div class="chat-header">
 
             <div>
+
                 <div class="chat-kicker">
                     ✦ AI PROJECT EXPLORER
                 </div>
@@ -321,11 +356,13 @@
                 <h2>
                     ASK THE ARCHIVE
                 </h2>
+
             </div>
 
             <button
                 class="chat-close"
                 id="closeChat"
+                aria-label="Close chat"
             >
                 ×
             </button>
@@ -333,15 +370,19 @@
         </div>
 
 
+        <!-- CHAT INTRO -->
+
         <div class="chat-intro">
 
             <p>
-                Ask me anything about the projects
-                documented in the archive.
+                A conversational layer over My
+                Project Archive.
             </p>
 
         </div>
 
+
+        <!-- CHAT MESSAGES -->
 
         <div
             class="chat-messages"
@@ -355,9 +396,9 @@
                 </div>
 
                 <div class="message-content">
-                    Ask me about this project,
-                    another build, or how the
-                    projects connect.
+                    Ask me about {{ project.title }} —
+                    why I built it, what I worked on,
+                    how it works, or what I learned.
                 </div>
 
             </div>
@@ -365,22 +406,26 @@
         </div>
 
 
+        <!-- QUICK PROMPTS -->
+
         <div class="quick-prompts">
 
-            <button data-prompt="Why was this project built?">
+            <button data-prompt="Why was {{ project.title }} built?">
                 Why build it?
             </button>
 
-            <button data-prompt="What did Vishal personally contribute?">
+            <button data-prompt="What did Vishal personally contribute to {{ project.title }}?">
                 My contribution
             </button>
 
-            <button data-prompt="How does this project work?">
+            <button data-prompt="How does {{ project.title }} work?">
                 How it works
             </button>
 
         </div>
 
+
+        <!-- CHAT INPUT -->
 
         <div class="chat-input-area">
 
@@ -393,6 +438,7 @@
             <button
                 id="sendMessage"
                 class="send-button"
+                aria-label="Send message"
             >
                 ↑
             </button>

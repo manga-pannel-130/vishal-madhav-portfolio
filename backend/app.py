@@ -44,21 +44,35 @@ def project(project_id):
 @app.route("/chat", methods=["POST"])
 def chat():
 
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
-    if not data or "message" not in data:
-
+    if not isinstance(data, dict):
         return jsonify({
             "response": "Please enter a message."
         }), 400
 
-    user_message = data["message"].strip()
+    user_message = data.get("message")
+
+    if not isinstance(user_message, str):
+        return jsonify({
+            "response": "Please enter a valid message."
+        }), 400
+
+    user_message = user_message.strip()
+
+    if not user_message:
+        return jsonify({
+            "response": "Please enter a message."
+        }), 400
 
     conversation_history = data.get("history", [])
 
+    if not isinstance(conversation_history, list):
+        conversation_history = []
+
     bot_response = get_response(
-        user_message,
-        conversation_history,
+        user_message=user_message,
+        conversation_history=conversation_history,
     )
 
     return jsonify({
@@ -68,7 +82,10 @@ def chat():
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template("index.html", projects=PROJECTS), 404
+    return render_template(
+        "index.html",
+        projects=PROJECTS,
+    ), 404
 
 
 if __name__ == "__main__":

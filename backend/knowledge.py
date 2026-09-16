@@ -1,5 +1,6 @@
 # backend/knowledge.py
 
+
 PROFILE = {
     "name": "Vishal Madhav",
     "role": "Computer Science Engineering Student",
@@ -13,6 +14,10 @@ PROFILE = {
 
 
 PROJECTS = {
+
+    # =========================================================
+    # PAST BUILDS
+    # =========================================================
 
     "skillsense": {
         "number": "01",
@@ -45,8 +50,8 @@ PROJECTS = {
 
         "technical": (
             "The broader project used AI-driven components to support skill "
-            "assessment and career guidance. My work was specifically focused "
-            "on the quiz-generation part of that system."
+            "assessment and career guidance. My documented work was "
+            "specifically focused on the quiz-generation part of that system."
         ),
 
         "challenge": (
@@ -68,7 +73,7 @@ PROJECTS = {
 
         "technologies": [
             "Python",
-            "Artificial Intelligence"
+            "Artificial Intelligence",
         ],
 
         "github": None,
@@ -76,10 +81,14 @@ PROJECTS = {
     },
 
 
+    # =========================================================
+    # CURRENT BUILDS
+    # =========================================================
+
     "hiring-agent": {
-        "number": "02",
+        "number": "01",
         "title": "Hiring Agent",
-        "category": "PAST BUILD",
+        "category": "CURRENT BUILD",
         "ownership": "SOLO",
         "type": "Solo Project",
         "status": "Prototype",
@@ -136,7 +145,7 @@ PROJECTS = {
             "Python",
             "Artificial Intelligence",
             "Streamlit",
-            "Resume Parsing"
+            "Resume Parsing",
         ],
 
         "github": "https://github.com/manga-pannel-130/Hiring-Agent",
@@ -145,7 +154,7 @@ PROJECTS = {
 
 
     "recoverai": {
-        "number": "01",
+        "number": "02",
         "title": "RecoverAI",
         "category": "CURRENT BUILD",
         "ownership": "SOLO",
@@ -165,21 +174,22 @@ PROJECTS = {
 
         "overview": (
             "RecoverAI is designed to analyse failed transactions, identify "
-            "possible recovery paths, and execute recovery workflows intended "
+            "possible recovery paths, and process recovery actions intended "
             "to improve successful payment completion."
         ),
 
         "my_contribution": (
-            "I built RecoverAI as a solo project. I worked across the system "
-            "including the AI agent, backend, database, recovery workflow, "
+            "I built RecoverAI as a solo project. I worked across the system, "
+            "including the AI component, backend, database, recovery workflow, "
             "transaction diagnostics, retry logic, and frontend."
         ),
 
         "technical": (
             "The system receives transaction information, analyses the failure, "
-            "uses recovery logic to determine an appropriate action, and records "
-            "the result. The recovery agent is responsible for the core decision "
-            "and calculation flow."
+            "applies the documented recovery logic, and records the result. "
+            "The project includes an AI-driven recovery component and retry "
+            "logic. The archive does not currently document specific external "
+            "payment-provider API integration details."
         ),
 
         "challenge": (
@@ -191,9 +201,10 @@ PROJECTS = {
 
         "lesson": (
             "RecoverAI taught me how to approach a problem I initially knew "
-            "nothing about and gradually turn it into a working system. More "
-            "importantly, it taught me how to structure an application when "
-            "starting from an idea rather than from an existing implementation."
+            "nothing about and gradually turn it into a working system. "
+            "More importantly, it taught me how to structure an application "
+            "when starting from an idea rather than from an existing "
+            "implementation."
         ),
 
         "remember": (
@@ -214,7 +225,7 @@ PROJECTS = {
             "Express.js",
             "PostgreSQL",
             "Prisma",
-            "Artificial Intelligence"
+            "Artificial Intelligence",
         ],
 
         "github": None,
@@ -223,7 +234,7 @@ PROJECTS = {
 
 
     "had": {
-        "number": "02",
+        "number": "03",
         "title": "HAD",
         "category": "CURRENT BUILD",
         "ownership": "TEAM",
@@ -249,9 +260,9 @@ PROJECTS = {
 
         "my_contribution": (
             "I worked on the project as part of a team. The current version "
-            "is a prototype, so the portfolio will describe the system and "
-            "my contribution more precisely after documenting the individual "
-            "parts I worked on."
+            "is a prototype, so my individual contribution is not yet "
+            "documented in enough detail to describe specific implementation "
+            "responsibilities."
         ),
 
         "technical": (
@@ -280,25 +291,164 @@ PROJECTS = {
         "technologies": [
             "CAD",
             "FEA",
-            "Topology Optimisation"
+            "Topology Optimisation",
         ],
 
         "github": None,
         "live": None,
-    }
+    },
+
+
+    "ai-soc-analyst": {
+        "number": "04",
+        "title": "AI SOC Analyst",
+        "category": "CURRENT BUILD",
+        "ownership": "SOLO",
+        "type": "AI Lab Micro Project",
+        "status": "Building",
+
+        "short_description": (
+            "An AI-assisted security operations project focused on "
+            "exploring automated security analysis."
+        ),
+
+        "why": (
+            "I wanted to explore how AI systems can be applied to security "
+            "operations and how repetitive analysis tasks could be assisted "
+            "through automation."
+        ),
+
+        "overview": (
+            "AI SOC Analyst is a micro project I am currently building for "
+            "the AI Lab. The project explores the idea of using AI to assist "
+            "with security operations and analysis."
+        ),
+
+        "my_contribution": (
+            "I am building the project as an individual micro project, "
+            "working on the application flow and the AI-assisted analysis "
+            "components."
+        ),
+
+        "technical": (
+            "The project is currently under development. Its technical "
+            "implementation and AI workflow are still being refined."
+        ),
+
+        "challenge": (
+            "The main challenge is figuring out how to turn security data "
+            "and analysis tasks into a workflow that an AI system can "
+            "assist with in a useful and structured way."
+        ),
+
+        "lesson": (
+            "This project is helping me explore the intersection of AI, "
+            "automation and cybersecurity through a practical system."
+        ),
+
+        "remember": (
+            "A current AI Lab micro project exploring AI-assisted "
+            "security operations analysis."
+        ),
+
+        "technologies": [
+            "Artificial Intelligence",
+            "Cybersecurity",
+        ],
+
+        "github": None,
+        "live": None,
+    },
+
+
+    "mealmate": {
+        "number": "05",
+        "title": "MealMate",
+        "category": "CURRENT BUILD",
+        "ownership": "SOLO",
+        "type": "Application",
+        "status": "Building",
+
+        "short_description": (
+            "A meal planning application for organising meals and "
+            "discovering recipes based on available ingredients."
+        ),
+
+        "why": (
+            "I built MealMate to explore how a practical application could "
+            "help users plan meals and find suitable recipes without having "
+            "to organise everything manually."
+        ),
+
+        "overview": (
+            "MealMate is a web application that supports user accounts, "
+            "meal planning and recipe recommendations based on ingredients. "
+            "I am currently continuing to develop the project and explore "
+            "additional features."
+        ),
+
+        "my_contribution": (
+            "I built the application and worked across the frontend, backend, "
+            "database integration, authentication and meal-planning workflow."
+        ),
+
+        "technical": (
+            "The application uses a React frontend with a FastAPI backend "
+            "and MySQL for user and application data. It integrates with "
+            "the Spoonacular API for recipe and ingredient-related data."
+        ),
+
+        "challenge": (
+            "One of the challenges was connecting the frontend, backend, "
+            "database and external recipe API into a single workflow that "
+            "could support authentication and meal planning."
+        ),
+
+        "lesson": (
+            "MealMate helped me understand how the different parts of a "
+            "full-stack application need to work together rather than "
+            "treating the frontend and backend as separate pieces."
+        ),
+
+        "remember": (
+            "A full-stack meal planning application built with React, "
+            "FastAPI and MySQL, currently being expanded with additional features."
+        ),
+
+        "technologies": [
+            "React",
+            "FastAPI",
+            "MySQL",
+            "Spoonacular API",
+        ],
+
+        "github": None,
+        "live": None,
+    },
 }
 
 
+# =============================================================
+# PROJECT GROUPS
+# =============================================================
+
 PAST_PROJECTS = [
     "skillsense",
-    "hiring-agent",
 ]
+
 
 CURRENT_PROJECTS = [
+    "hiring-agent",
     "recoverai",
     "had",
+    "ai-soc-analyst",
+    "mealmate",
 ]
 
+
+# =============================================================
+# SKILLS
+# =============================================================
 
 SKILLS = [
     "Python",
@@ -319,12 +469,20 @@ SKILLS = [
 ]
 
 
+# =============================================================
+# EDUCATION
+# =============================================================
+
 EDUCATION = (
     "I am a Computer Science Engineering student at "
     "Coimbatore Institute of Technology, pursuing a B.E. in "
     "Computer Science and Engineering."
 )
 
+
+# =============================================================
+# CAREER DIRECTION
+# =============================================================
 
 CAREER_GOAL = (
     "I want to build AI systems. I'm interested in understanding how "
@@ -333,7 +491,13 @@ CAREER_GOAL = (
 )
 
 
+# =============================================================
+# CURRENT WORK
+# =============================================================
+
 CURRENTLY_WORKING_ON = (
-    "I'm currently refining RecoverAI, working on the HAD team project, "
-    "and building this portfolio as an interactive archive of my work."
+    "I'm currently building Hiring Agent, refining RecoverAI, working "
+    "on the HAD team project, building the AI SOC Analyst micro project, "
+    "and continuing development of MealMate. I'm also building this "
+    "portfolio as an interactive archive of my work."
 )

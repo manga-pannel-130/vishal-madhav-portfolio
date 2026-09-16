@@ -12,6 +12,10 @@ load_dotenv()
 class LLMClient:
     """
     Handles communication with the Groq LLM.
+
+    This class is responsible only for LLM communication.
+    Archive knowledge and persona rules are handled by chatbot.py
+    and persona.py.
     """
 
     def __init__(self):
@@ -42,7 +46,7 @@ class LLMClient:
         ]
 
         if conversation_history:
-            messages.extend(conversation_history[-10:])
+            messages.extend(conversation_history)
 
         messages.append(
             {
@@ -54,7 +58,7 @@ class LLMClient:
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
-            temperature=0.3,
+            temperature=0.2,
             max_completion_tokens=500,
         )
 
