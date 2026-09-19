@@ -8,11 +8,17 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Vishal Madhav — The Build Archive</title>
+    <title>The Build Archive</title>
 
     <meta
         name="description"
         content="Vishal Madhav — a build archive exploring AI systems through projects, experiments and problem solving."
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ url_for('static', filename='images/logo.png') }}"
     >
 
     <link
@@ -26,7 +32,12 @@
 <header class="site-header">
 
     <a href="/" class="logo">
-        VISHAL MADHAV
+    <img
+        id="siteLogo"
+        src="{{ url_for('static', filename='images/logo.png') }}"
+        alt="The Build Archive"
+    >
+    <span>VISHAL MADHAV</span>
     </a>
 
     <nav class="nav-links">
@@ -66,8 +77,11 @@
 
             <div class="hero-photo">
                 <img
+                    id="heroImage"
                     src="{{ url_for('static', filename='images/vishal.png') }}"
                     alt="Vishal Madhav"
+                    data-dark="{{ url_for('static', filename='images/vishal.png') }}"
+                    data-light="{{ url_for('static', filename='images/vishal-light.png') }}"
                 >
             </div>
 

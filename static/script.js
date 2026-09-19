@@ -14,44 +14,134 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggle = document.getElementById("themeToggle");
     const themeIcon = document.getElementById("themeIcon");
 
+    // Theme-specific visual elements
+    const siteLogo = document.getElementById("siteLogo");
+    const heroImage = document.getElementById("heroImage");
+
 
     let conversationHistory = [];
 
 
     // ----------------------------------------
-    // THEME
+    // THEME ASSETS
     // ----------------------------------------
 
-    const savedTheme = localStorage.getItem("portfolio-theme");
+    const assets = {
+        dark: {
+            logo: "/static/images/logo-dark.png",
+            hero: "/static/images/vishal.png"
+        },
 
-    if (savedTheme === "light") {
-        document.body.classList.add("light-mode");
-
-        if (themeIcon) {
-            themeIcon.textContent = "☀";
+        light: {
+            logo: "/static/images/logo-light.png",
+            hero: "/static/images/vishal-light.png"
         }
+    };
+
+
+    // ----------------------------------------
+    // APPLY THEME
+    // ----------------------------------------
+
+    function applyTheme(theme) {
+
+        const isLight =
+            theme === "light";
+
+        document.body.classList.toggle(
+            "light-mode",
+            isLight
+        );
+
+
+        // Update theme icon
+        if (themeIcon) {
+
+            themeIcon.textContent =
+                isLight
+                    ? "☀"
+                    : "◐";
+
+        }
+
+
+        // Update logo
+        if (siteLogo) {
+
+            siteLogo.src =
+                isLight
+                    ? assets.light.logo
+                    : assets.dark.logo;
+
+        }
+
+
+        // Update hero image
+        if (heroImage) {
+
+            heroImage.src =
+                isLight
+                    ? heroImage.dataset.light
+                    : heroImage.dataset.dark;
+
+        }
+
     }
 
 
+    // ----------------------------------------
+    // INITIAL THEME
+    // ----------------------------------------
+
+    const savedTheme =
+        localStorage.getItem(
+            "portfolio-theme"
+        );
+
+
+    if (savedTheme === "light") {
+
+        applyTheme("light");
+
+    } else {
+
+        applyTheme("dark");
+
+    }
+
+
+    // ----------------------------------------
+    // THEME TOGGLE
+    // ----------------------------------------
+
     if (themeToggle) {
 
-        themeToggle.addEventListener("click", () => {
+        themeToggle.addEventListener(
+            "click",
+            () => {
 
-            document.body.classList.toggle("light-mode");
+                const isCurrentlyLight =
+                    document.body.classList.contains(
+                        "light-mode"
+                    );
 
-            const isLight =
-                document.body.classList.contains("light-mode");
 
-            localStorage.setItem(
-                "portfolio-theme",
-                isLight ? "light" : "dark"
-            );
+                const newTheme =
+                    isCurrentlyLight
+                        ? "dark"
+                        : "light";
 
-            if (themeIcon) {
-                themeIcon.textContent = isLight ? "☀" : "◐";
+
+                applyTheme(newTheme);
+
+
+                localStorage.setItem(
+                    "portfolio-theme",
+                    newTheme
+                );
+
             }
-
-        });
+        );
 
     }
 
@@ -71,10 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             if (chatInput) {
+
                 chatInput.focus();
+
             }
 
         }, 250);
+
     }
 
 
@@ -85,22 +178,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         chatOverlay.classList.remove("active");
+
     }
 
 
     if (openChat) {
+
         openChat.addEventListener(
             "click",
             openChatPanel
         );
+
     }
 
 
     if (closeChat) {
+
         closeChat.addEventListener(
             "click",
             closeChatPanel
         );
+
     }
 
 
@@ -110,8 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             (event) => {
 
-                if (event.target === chatOverlay) {
+                if (
+                    event.target === chatOverlay
+                ) {
+
                     closeChatPanel();
+
                 }
 
             }
@@ -126,15 +228,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addMessage(role, text) {
 
-        const message = document.createElement("div");
+        const message =
+            document.createElement("div");
+
 
         message.className =
             `chat-message ${role}`;
 
 
-        const label = document.createElement("div");
+        const label =
+            document.createElement("div");
 
-        label.className = "message-label";
+
+        label.className =
+            "message-label";
+
 
         label.textContent =
             role === "user"
@@ -142,11 +250,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "ARCHIVE";
 
 
-        const content = document.createElement("div");
+        const content =
+            document.createElement("div");
 
-        content.className = "message-content";
 
-        content.textContent = text;
+        content.className =
+            "message-content";
+
+
+        content.textContent =
+            text;
 
 
         message.appendChild(label);
@@ -164,10 +277,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addTypingIndicator() {
 
-        const typing = document.createElement("div");
+        const typing =
+            document.createElement("div");
+
 
         typing.className =
             "chat-message assistant typing-message";
+
 
         typing.id =
             "typingIndicator";
@@ -191,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         chatMessages.scrollTop =
             chatMessages.scrollHeight;
+
     }
 
 
@@ -201,8 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 "typingIndicator"
             );
 
+
         if (typing) {
+
             typing.remove();
+
         }
 
     }
@@ -212,10 +332,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // SEND MESSAGE
     // ----------------------------------------
 
-    async function sendChatMessage(customMessage = null) {
+    async function sendChatMessage(
+        customMessage = null
+    ) {
 
-        if (!chatInput || !sendMessage) {
+        if (
+            !chatInput ||
+            !sendMessage
+        ) {
+
             return;
+
         }
 
 
@@ -226,7 +353,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (!message) {
+
             return;
+
         }
 
 
@@ -242,7 +371,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "auto";
 
 
-        sendMessage.disabled = true;
+        sendMessage.disabled =
+            true;
 
 
         addTypingIndicator();
@@ -251,25 +381,29 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
 
             const response =
-                await fetch("/chat", {
+                await fetch(
+                    "/chat",
+                    {
 
-                    method: "POST",
+                        method: "POST",
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-                    body: JSON.stringify({
+                        body: JSON.stringify({
 
-                        message: message,
+                            message:
+                                message,
 
-                        history:
-                            conversationHistory
+                            history:
+                                conversationHistory
 
-                    })
+                        })
 
-                });
+                    }
+                );
 
 
             const data =
@@ -319,7 +453,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.error(error);
 
+
             removeTypingIndicator();
+
 
             addMessage(
                 "assistant",
@@ -329,7 +465,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        sendMessage.disabled = false;
+        sendMessage.disabled =
+            false;
+
 
         chatInput.focus();
 
@@ -374,6 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 chatInput.style.height =
                     "auto";
 
+
                 chatInput.style.height =
                     `${Math.min(
                         chatInput.scrollHeight,
@@ -406,9 +545,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     const prompt =
                         button.dataset.prompt;
 
+
                     openChatPanel();
 
-                    sendChatMessage(prompt);
+
+                    sendChatMessage(
+                        prompt
+                    );
 
                 }
             );
@@ -428,7 +571,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (
                 event.key === "Escape" &&
                 chatOverlay &&
-                chatOverlay.classList.contains("active")
+                chatOverlay.classList.contains(
+                    "active"
+                )
             ) {
 
                 closeChatPanel();

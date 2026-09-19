@@ -116,10 +116,16 @@ button {
 }
 
 .logo {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 .nav-links {
@@ -245,7 +251,6 @@ button {
 
     display: block;
 
-    filter: grayscale(100%);
 }
 
 .hero-label {
